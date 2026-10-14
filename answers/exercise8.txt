@@ -1,0 +1,69 @@
+➜  todo-backend git:(main) docker ps
+CONTAINER ID   IMAGE               COMMAND                  CREATED          STATUS          PORTS                                           NAMES
+5c75b0fb028a   initialized-mongo   "docker-entrypoint.s…"   36 minutes ago   Up 36 minutes   0.0.0.0:3456->27017/tcp, [::]:3456->27017/tcp   todo-backend-mongo-1
+➜  todo-backend git:(main) docker exec -it todo-backend-mongo-1 mongosh -u root -p example
+Current Mongosh Log ID:	6acf39385e1d91d0e878d8f1
+Connecting to:		mongodb://<credentials>@127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.12.0
+Using MongoDB:		9.0.2
+Using Mongosh:		2.12.0
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+
+To help improve our products, pseudo-anonymous usage data is collected from interactive and agentic sessions only, and sent to MongoDB periodically (https://www.mongodb.com/legal/privacy-policy).
+You can opt-out by running the disableTelemetry() command.
+
+------
+   The server generated these startup warnings when booting
+   2026-10-14T07:33:30.913+00:00: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+   2026-10-14T07:33:31.063+00:00: For customers running the current memory allocator, we suggest changing the contents of the following sysfsFile
+   2026-10-14T07:33:31.063+00:00: We suggest setting the contents of sysfsFile to 0.
+------
+
+test> show dbs
+admin         100.00 KiB
+config        100.00 KiB
+local          72.00 KiB
+the_database   56.00 KiB
+test> use the_database
+switched to db the_database
+the_database> show collections
+todos
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId('6acf3049b114aef3af0c1675'),
+    text: 'Write code updated',
+    done: true
+  },
+  {
+    _id: ObjectId('6acf3049b114aef3af0c1676'),
+    text: 'Learn about containers',
+    done: false
+  }
+]
+the_database> db.todos.insertOne({text: "Increase the number of tools in my tool belt", done: false})
+{
+  acknowledged: true,
+  insertedId: ObjectId('6acf3a1b5e1d91d0e878d8f2')
+}
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId('6acf3049b114aef3af0c1675'),
+    text: 'Write code updated',
+    done: true
+  },
+  {
+    _id: ObjectId('6acf3049b114aef3af0c1676'),
+    text: 'Learn about containers',
+    done: false
+  },
+  {
+    _id: ObjectId('6acf3a1b5e1d91d0e878d8f2'),
+    text: 'Increase the number of tools in my tool belt',
+    done: false
+  }
+]
+the_database> exit
+➜  todo-backend git:(main)
