@@ -5,7 +5,7 @@ services:
       context: ./todo-frontend
       dockerfile: Dockerfile
   mongo:
-    image: initialized-mongo
+    image: mongo:latest
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
